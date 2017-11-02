@@ -1,0 +1,9 @@
+export ORACLE_HOME=`grep "{{ arumon_db }}" /etc/oratab | awk -F: '{ print $2 }'`
+$ORACLE_HOME/bin/sqlplus -s /nolog <<EOSQL
+set pagesize 100
+column machine format a25
+connect system/{{ arumon_pwd }}@{{ arumon_db }}
+select to_char(sysdate,'hh24:mi:ss') hora,instance_name instancia
+from v\$instance;
+exit;
+EOSQL

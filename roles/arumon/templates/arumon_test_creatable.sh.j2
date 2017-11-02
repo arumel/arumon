@@ -1,0 +1,10 @@
+export ORACLE_HOME=`grep "{{ arumon_db }}" /etc/oratab | awk -F: '{ print $2 }'`
+$ORACLE_HOME/bin/sqlplus -s /nolog <<EOSQL
+connect system/{{ arumon_pwd }}@{{ arumon_db }}
+select to_char(sysdate,'DD/MM/YYYY HH24:MI:SS') as "DROP" from dual;
+drop table system.pruebas_ha;
+select to_char(sysdate,'DD/MM/YYYY HH24:MI:SS') as "CREATE" from dual;
+create table system.pruebas_ha as select count(1) as count from dba_objects;
+exit;
+EOSQL
+

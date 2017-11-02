@@ -1,0 +1,41 @@
+---
+- name: "Creacion directorio {{ arumon_work }}"
+  file:
+    path: "{{ arumon_work }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0770
+
+- name: "Creacion directorio {{ arumon_log }}"
+  file:
+    path: "{{ arumon_log }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0770
+
+- name: "Despregue de {{ arumon_work }}/arumon_control.sh"
+  template:
+    src: arumon_control.sh.j2
+    dest: "{{ arumon_work }}/arumon_control.sh"
+    owner: root
+    group: root
+    mode: 0770
+
+- name: "Despregue de {{ arumon_work }}/arumon_test_conectarac.sh"
+  template:
+    src: arumon_test_conectarac.sh.j2
+    dest: "{{ arumon_work }}/arumon_test_conectarac.sh"
+    owner: root
+    group: root
+    mode: 0770
+
+- name: "Despregue de {{ arumon_work }}/arumon_test_creatable.sh"
+  template:
+    src: arumon_test_creatable.sh.j2
+    dest: "{{ arumon_work }}/arumon_test_creatable.sh"
+    owner: root
+    group: root
+    mode: 0770
+...
