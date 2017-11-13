@@ -21,20 +21,32 @@ cd ${WORKDIR}
 
 touch bucleactivo
 
-if ${CONECTARAC}; then
+if  [[ ${CONECTARAC} == 1 ]]
+then
   while [ -f bucleactivo ]; do date; ${WORKDIR}/arumon_test_conectarac.sh ; sleep ${DEFAULTSLEEP} ; done 1>${LOGDIR}/arumon_conectarac_${TIMESTAMP}.log 2>&1 &
+fi
 
-if ${CREATABLE}; then
+if [[ ${CREATABLE} == 1 ]]
+then
   while [ -f bucleactivo ]; do date; ${WORKDIR}/arumon_test_creatable.sh ; sleep ${DEFAULTSLEEP} ; done 1>${LOGDIR}/arumon_creatable_${TIMESTAMP}.log 2>&1 &
+fi
 
-if ${CRSSTAT}; then
+if [[ ${CRSSTAT} == 1 ]]
+then
   while [ -f bucleactivo ]; do date; $GIHOME/bin/crsctl stat res -t ;sleep ${DEFAULTSLEEP} ; done  1>${LOGDIR}/arumon_crsstat_${TIMESTAMP}.log 2>&1 &
+fi
 
-if ${MULTIPATH}; then
+if [[ ${MULTIPATH} == 1 ]]
+then
   while [ -f bucleactivo ]; do date; multipath -ll ;sleep ${DEFAULTSLEEP} ; done 1>${LOGDIR}/arumon_multipath_${TIMESTAMP}.log 2>&1 &
+fi
 
-if ${LSDSK}; then
+if [[ ${LSDSK} == 1 ]]
+then
   while [ -f bucleactivo ]; do date; $GIHOME/bin/asmcmd lsdsk -kpt ;sleep ${DEFAULTSLEEP} ; done 1>${LOGDIR}/arumon_sitelsdsk_${TIMESTAMP}.log 2>&1 &
+fi
 
-if ${STATSITE}; then
+if [[ ${STATSITE} == 1 ]]
+then
   while [ -f bucleactivo ]; do date; $GIHOME/bin/crsctl query cluster site -all ;sleep ${DEFAULTSLEEP} ; done 1>${LOGDIR}/arumon_querysite_${TIMESTAMP}.log 2>&1 &
+fi
